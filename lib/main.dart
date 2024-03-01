@@ -32,19 +32,34 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
+    'Buzz Aldrin\'s mother\'s maiden name was \"Moon\".',
+    'It is illegal to pee in the Ocean in Portugal.',
+    'No piece of square dry paper can be folded in half more than 7 times.',
+    'In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place.',
+    'The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.',
+    'The total surface area of two human lungs is approximately 70 square metres.',
+    'Google was originally called \"Backrub\".',
+    'Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.',
+    'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.'
+  ];
+  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -61,12 +76,15 @@ class _QuizPageState extends State<QuizPage> {
               color: Colors.green,
               onPressed: () {
                 setState(() {
-                  scoreKeeper.add(
-                    const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
+                  if (questionNumber < 11) {
+                    scoreKeeper.add(
+                      const Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
+                    );
+                    questionNumber++;
+                  }
                 });
               },
               child: const Text(
@@ -86,12 +104,15 @@ class _QuizPageState extends State<QuizPage> {
               color: Colors.red,
               onPressed: () {
                 setState(() {
-                  scoreKeeper.add(
-                    const Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                  );
+                  if (questionNumber < 11) {
+                    scoreKeeper.add(
+                      const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
+                    );
+                    questionNumber++;
+                  }
                 });
               },
               child: const Text(
