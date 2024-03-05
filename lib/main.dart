@@ -38,7 +38,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionList[questionNumber].text,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -67,28 +66,28 @@ class _QuizPageState extends State<QuizPage> {
             child: MaterialButton(
               color: Colors.green,
               onPressed: () {
-                setState(() {
-                  if (scoreKeeper.length < quizBrain.questionList.length) {
-                    if (quizBrain.questionList[questionNumber].answer) {
-                      scoreKeeper.add(
-                        const Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        ),
-                      );
-                    } else {
-                      scoreKeeper.add(
-                        const Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        ),
-                      );
+                setState(
+                  () {
+                    if (scoreKeeper.length < 13) {
+                      if (quizBrain.getAnswer()) {
+                        scoreKeeper.add(
+                          const Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                        );
+                      } else {
+                        scoreKeeper.add(
+                          const Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          ),
+                        );
+                      }
                     }
-                  }
-                  if (questionNumber < quizBrain.questionList.length - 1) {
-                    questionNumber++;
-                  }
-                });
+                    quizBrain.nextQuestion();
+                  },
+                );
               },
               child: const Text(
                 'True',
@@ -106,28 +105,28 @@ class _QuizPageState extends State<QuizPage> {
             child: MaterialButton(
               color: Colors.red,
               onPressed: () {
-                setState(() {
-                  if (scoreKeeper.length < quizBrain.questionList.length) {
-                    if (quizBrain.questionList[questionNumber].answer) {
-                      scoreKeeper.add(
-                        const Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        ),
-                      );
-                    } else {
-                      scoreKeeper.add(
-                        const Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        ),
-                      );
+                setState(
+                  () {
+                    if (scoreKeeper.length < 13) {
+                      if (quizBrain.getAnswer()) {
+                        scoreKeeper.add(
+                          const Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          ),
+                        );
+                      } else {
+                        scoreKeeper.add(
+                          const Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                        );
+                      }
                     }
-                  }
-                  if (questionNumber < quizBrain.questionList.length - 1) {
-                    questionNumber++;
-                  }
-                });
+                    quizBrain.nextQuestion();
+                  },
+                );
               },
               child: const Text(
                 'False',
