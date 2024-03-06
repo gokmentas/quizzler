@@ -17,7 +17,7 @@ class QuizBrain {
         'In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place.',
         true),
     Question(
-        'The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.',
+        'The loudest sound produced by any animal is 18 decibels. That animal is the African Elephant.',
         false),
     Question(
         'The total surface area of two human lungs is approximately 70 square metres.',
