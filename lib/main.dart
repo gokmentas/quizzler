@@ -40,12 +40,27 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer(bool userPickedAnswer) {
     if (quizBrain.isFinished()) {
       Alert(
-              context: context,
-              title: "Finished!",
-              desc: "You've reached the end of the quiz.")
-          .show();
-      quizBrain.reset();
-      scoreKeeper.clear();
+        context: context,
+        type: AlertType.success,
+        title: "FINISHED!",
+        desc: "You've reached the end of the quiz.",
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              setState(() {
+                quizBrain.reset();
+                scoreKeeper.clear();
+              });
+              Navigator.pop(context);
+            },
+            width: 120,
+            child: const Text(
+              "RESET",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          )
+        ],
+      ).show();
     } else {
       if (userPickedAnswer == quizBrain.getAnswer()) {
         scoreKeeper.add(

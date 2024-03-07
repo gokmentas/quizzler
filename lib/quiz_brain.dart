@@ -2,6 +2,9 @@ import 'question.dart';
 
 class QuizBrain {
   int _questionNumber = 0;
+  int _temp = 0;
+  int _lastQuestionNumber = 0;
+  String _lastQuestionText = "";
 
   final List<Question> _questionList = [
     Question('Some cats are actually allergic to humans.', true),
@@ -28,7 +31,7 @@ class QuizBrain {
         true),
     Question(
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
-        true)
+        true),
   ];
 
   void nextQuestion() {
@@ -42,18 +45,27 @@ class QuizBrain {
   }
 
   bool getAnswer() {
+    _temp++;
     return _questionList[_questionNumber].answer;
   }
 
   bool isFinished() {
-    if (_questionNumber == _questionList.length - 1) {
+    if (_temp == _questionList.length) {
       return true;
+    } else if (_temp == _questionList.length - 1) {
+      _lastQuestionNumber = _temp;
+      _lastQuestionText = _questionList[_questionNumber].text;
+      _questionList[_questionNumber].text =
+          "Press any of the button to finish the quiz.";
+      return false;
     } else {
       return false;
     }
   }
 
   void reset() {
-    _questionNumber = -1;
+    _questionNumber = 0;
+    _temp = 0;
+    _questionList[_lastQuestionNumber].text = _lastQuestionText;
   }
 }
